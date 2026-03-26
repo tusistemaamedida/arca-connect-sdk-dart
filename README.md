@@ -13,7 +13,7 @@ Agregá la dependencia en `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  arca_connect_sdk: ^0.1.3
+  arca_connect_sdk: ^0.1.4
 ```
 
 Luego:
@@ -22,15 +22,41 @@ Luego:
 dart pub get
 ```
 
-## Ejemplo en el repositorio
+## Ejemplos en el repositorio
 
-En la carpeta [`example/`](example/) hay un programa mínimo (`example/lib/main.dart`) que crea `ArcaConnectSdk` y llama a `testConnection`. Copiá esa carpeta o ejecutá desde el clon:
+La carpeta [`example/`](example/) es una mini-app Dart que depende del SDK por **ruta local** (`path: ../`), útil para probar cambios antes de publicar.
 
-```bash
-cd example
-dart pub get
-dart run lib/main.dart
-```
+### Requisitos
+
+- Tener [Dart](https://dart.dev/get-dart) instalado (la misma versión que cumpla `sdk: '>=3.8.0 <4.0.0'` del paquete).
+- Una **API Key** y un **CUIT** válidos de [ARCA Connect](https://conectarca.com).
+
+### Pasos
+
+1. **Clonar o copiar** el repositorio y situarse en la raíz del paquete (donde está el `pubspec.yaml` principal).
+
+2. **Entrar al ejemplo e instalar dependencias** (resuelve `arca_connect_sdk` desde `../`):
+
+   ```bash
+   cd example
+   dart pub get
+   ```
+
+3. **Editar credenciales** en [`example/lib/main.dart`](example/lib/main.dart): reemplazá `apiKey: 'arca_sk_test_xxx'` y `cuit` por valores reales de prueba. No subas claves al repositorio.
+
+4. **Ejecutar** el programa:
+
+   ```bash
+   dart run lib/main.dart
+   ```
+
+### Qué hace el ejemplo
+
+- Crea `ArcaConnectSdk` con el entorno elegido (`ArcaEnvironment.development` o `production`).
+- Activa **`sdk.enableLogging`** para imprimir en consola el request/response HTTP completos (útil para depurar).
+- Llama a **`sdk.params.healthCheck()`** (no solo `testConnection`) y muestra un resumen con el estado de AppServer, DbServer y AuthServer, más el JSON del modelo `ArcaHealth`.
+
+Si la API Key o el CUIT no son válidos, el SDK lanzará al construir el cliente o al llamar a la API; revisá el mensaje y los logs HTTP.
 
 ## Uso rápido
 

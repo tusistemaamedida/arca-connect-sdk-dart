@@ -1,3 +1,8 @@
+## 0.1.4
+
+- Documentación README ampliada: sección **Ejemplos en el repositorio** con requisitos, pasos (`cd example`, `dart pub get`, editar `main.dart`, `dart run lib/main.dart`) y descripción de qué hace el ejemplo (logging HTTP, `healthCheck`, salida formateada).
+- **Example:** `example/lib/main.dart` orientado a prueba manual contra la API (health + logging + resumen en consola).
+
 ## 0.1.3
 
 - **Health check / Conectar CA:** `ParamsService.healthCheck()` parsea el `data` real de la API (`data.services` con claves `AppServer`, `DbServer`, `AuthServer` en PascalCase) mediante `ArcaHealth.fromApiData`. Se mantiene compatibilidad con el JSON plano legacy (`app_server`, `db_server`, `auth_server`).
