@@ -1,0 +1,17 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$ArcaHealthImpl _$$ArcaHealthImplFromJson(Map<String, dynamic> json) =>
+    _$ArcaHealthImpl(
+      appServer: json['app_server'] as String,
+      dbServer: json['db_server'] as String,
+      authServer: json['auth_server'] as String,
+    );
+
+Map<String, dynamic> _$$ArcaHealthImplToJson(_$ArcaHealthImpl instance) =>
+    <String, dynamic>{
+      'app_server': instance.appServer,
+      'db_server': instance.dbServer,
+      'auth_server': instance.authServer,
+    };
