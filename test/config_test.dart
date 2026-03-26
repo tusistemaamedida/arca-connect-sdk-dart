@@ -32,7 +32,7 @@ void main() {
         environment: ArcaEnvironment.development,
       );
       expect(config.cuit, '20111111112');
-      expect(config.effectiveBaseUrl, contains('arcaconnect'));
+      expect(config.effectiveBaseUrl, contains('conectarca.com'));
     });
   });
 }

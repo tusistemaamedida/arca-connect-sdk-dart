@@ -13,7 +13,7 @@ Agregá la dependencia en `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  arca_connect_sdk: ^0.1.1
+  arca_connect_sdk: ^0.1.3
 ```
 
 Luego:

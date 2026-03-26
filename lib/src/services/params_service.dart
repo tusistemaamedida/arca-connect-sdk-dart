@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import '../api_client.dart';
 import '../models/arca_health.dart';
 
@@ -9,10 +11,19 @@ class ParamsService {
   final ArcaApiClient _client;
 
   /// Estado de los servicios ARCA.
+  ///
+  /// Acepta respuestas HTTP 200 (operativo) y 503 (degradado) con el mismo
+  /// cuerpo JSON (`data.status`, `data.services`, etc.).
   Future<ArcaHealth> healthCheck() async {
-    final response = await _client.get('/arca/health');
+    final response = await _client.get(
+      '/arca/health',
+      options: Options(
+        validateStatus: (int? status) =>
+            status != null && (status == 200 || status == 503),
+      ),
+    );
     final data = response['data'] ?? response;
-    return ArcaHealth.fromJson(Map<String, dynamic>.from(data as Map));
+    return ArcaHealth.fromApiData(Map<String, dynamic>.from(data as Map));
   }
 
   /// Tipos de comprobante disponibles.

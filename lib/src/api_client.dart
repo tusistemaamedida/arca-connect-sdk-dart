@@ -11,7 +11,8 @@ import 'exceptions/validation_exception.dart';
 class ArcaApiClient {
   /// Crea el cliente con [config] y opcionalmente un [dio] inyectado (tests).
   ArcaApiClient(this.config, {Dio? dio}) {
-    _dio = dio ??
+    _dio =
+        dio ??
         Dio(
           BaseOptions(
             baseUrl: config.effectiveBaseUrl,
@@ -28,11 +29,7 @@ class ArcaApiClient {
         );
 
     _dio.interceptors.add(
-      LogInterceptor(
-        requestBody: true,
-        responseBody: true,
-        logPrint: (_) {},
-      ),
+      LogInterceptor(requestBody: true, responseBody: true, logPrint: (_) {}),
     );
   }
 
@@ -44,14 +41,19 @@ class ArcaApiClient {
   Dio get dio => _dio;
 
   /// GET request.
+  ///
+  /// [options] permite, por ejemplo, [Options.validateStatus] para endpoints
+  /// que devuelven 503 con cuerpo JSON (p. ej. health degradado).
   Future<Map<String, dynamic>> get(
     String path, {
     Map<String, dynamic>? queryParams,
+    Options? options,
   }) async {
     try {
       final response = await _dio.get<dynamic>(
         path,
         queryParameters: queryParams,
+        options: options,
       );
       return _handleResponse(response);
     } on DioException catch (e) {
@@ -93,16 +95,17 @@ class ArcaApiClient {
     if (e.response != null) {
       final status = e.response!.statusCode ?? 0;
       final body = e.response!.data;
-      final message =
-          body is Map ? (body['message'] ?? 'Error').toString() : 'Error';
+      final message = body is Map
+          ? (body['message'] ?? 'Error').toString()
+          : 'Error';
       final errors = body is Map ? body['errors'] : null;
 
       return switch (status) {
         401 => ArcaAuthException('API Key inválida o expirada'),
         422 => ArcaValidationException(message, errors: errors),
         429 => ArcaException(
-            'Rate limit excedido. Intentá de nuevo en unos segundos.',
-          ),
+          'Rate limit excedido. Intentá de nuevo en unos segundos.',
+        ),
         502 => ArcaInvoiceException('Error de ARCA: $message'),
         _ => ArcaException('Error HTTP $status: $message'),
       };
