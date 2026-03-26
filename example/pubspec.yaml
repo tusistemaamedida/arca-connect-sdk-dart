@@ -1,0 +1,10 @@
+name: arca_connect_sdk_example
+description: Ejemplo mínimo del paquete arca_connect_sdk.
+publish_to: none
+
+environment:
+  sdk: '>=3.8.0 <4.0.0'
+
+dependencies:
+  arca_connect_sdk:
+    path: ../

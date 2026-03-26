@@ -4,7 +4,7 @@ SDK en Dart para integrar **factura electrónica ARCA** (ex AFIP) en aplicacione
 
 ## Requisitos
 
-- Dart SDK `>=3.0.0 <4.0.0`
+- Dart SDK `>=3.8.0 <4.0.0`
 - Cuenta y API Key en [ARCA Connect](https://conectarca.com)
 
 ## Instalación
@@ -13,13 +13,23 @@ Agregá la dependencia en `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  arca_connect_sdk: ^0.1.0
+  arca_connect_sdk: ^0.1.1
 ```
 
 Luego:
 
 ```bash
 dart pub get
+```
+
+## Ejemplo en el repositorio
+
+En la carpeta [`example/`](example/) hay un programa mínimo (`example/lib/main.dart`) que crea `ArcaConnectSdk` y llama a `testConnection`. Copiá esa carpeta o ejecutá desde el clon:
+
+```bash
+cd example
+dart pub get
+dart run lib/main.dart
 ```
 
 ## Uso rápido

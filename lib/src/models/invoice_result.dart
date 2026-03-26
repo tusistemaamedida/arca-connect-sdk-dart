@@ -4,7 +4,7 @@ part 'invoice_result.freezed.dart';
 
 /// Resultado de la emisión de un comprobante con CAE asignado por ARCA.
 @freezed
-class InvoiceResult with _$InvoiceResult {
+abstract class InvoiceResult with _$InvoiceResult {
   const factory InvoiceResult({
     required bool approved,
     String? cae,

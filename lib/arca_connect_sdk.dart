@@ -1,3 +1,8 @@
+/// SDK para integrar [factura electrónica ARCA](https://conectarca.com) (ex AFIP)
+/// en aplicaciones Dart o Flutter.
+///
+/// Punto de entrada principal: [ArcaConnectSdk]. Incluye cliente HTTP, modelos
+/// de comprobantes, enums y excepciones tipadas.
 library arca_connect_sdk;
 
 export 'src/arca_connect_sdk.dart';

@@ -36,6 +36,7 @@ class ArcaApiClient {
     );
   }
 
+  /// Configuración validada (API key, CUIT, entorno) usada por este cliente.
   final ArcaConnectConfig config;
   late final Dio _dio;
 

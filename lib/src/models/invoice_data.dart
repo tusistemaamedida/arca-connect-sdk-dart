@@ -13,7 +13,7 @@ part 'invoice_data.g.dart';
 
 /// Línea de IVA desglosada para el comprobante.
 @freezed
-class IvaItem with _$IvaItem {
+abstract class IvaItem with _$IvaItem {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory IvaItem({
     @JsonKey(fromJson: _alicuotaFromJson, toJson: _alicuotaToJson)
@@ -28,7 +28,7 @@ class IvaItem with _$IvaItem {
 
 /// Payload de entrada para emitir un comprobante electrónico ARCA.
 @freezed
-class InvoiceData with _$InvoiceData {
+abstract class InvoiceData with _$InvoiceData {
   const InvoiceData._();
 
   @JsonSerializable(fieldRename: FieldRename.snake)

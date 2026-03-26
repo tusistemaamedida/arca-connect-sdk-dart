@@ -63,7 +63,7 @@ void main() {
       );
       final service = InvoiceService(MockApiClient(), config);
 
-      final noFechas = InvoiceData(
+      const noFechas = InvoiceData(
         puntoVenta: 1,
         cbteTipo: CbteTipo.facturaB,
         concepto: Concepto.servicios,
@@ -94,6 +94,6 @@ InvoiceData validInvoiceData() => InvoiceData(
       fchServHasta: DateTime(2026, 2, 28),
       fchVtoPago: DateTime(2026, 3, 15),
       iva: <IvaItem>[
-        IvaItem(id: AlicuotaIva.iva21, baseImp: 1000, importe: 210),
+        const IvaItem(id: AlicuotaIva.iva21, baseImp: 1000, importe: 210),
       ],
     );
