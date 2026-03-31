@@ -1,3 +1,12 @@
+## 0.1.5
+
+- **`InvoiceData`**: campo requerido `condicionIvaReceptorId` (obligatorio por RG 5616 de ARCA). Campo opcional `cbteDate` (`cbte_fecha`). Lista opcional `tributos` (`List<TributoItem>`) para tributos adicionales.
+- **`TributoItem`**: nueva clase Freezed con serialización JSON (`id`, `desc`, `baseImp`, `alic`, `importe`).
+- **`InvoiceResult`**: nuevos campos mapeados desde la respuesta de la API: `id` (ULID), `qr` (URL QR AFIP), `cae`, `caeVto`, `cbteDate`, `cuitEmisor`, `environment`, `puntoVenta`, `cbteTipo`, `cbteTipoNombre`, `concepto`, `docTipo`, `docNro`, `condicionIvaReceptorId`, `impTotal`, `impNeto`, `impIva`, `monId`, `taxes` (`List<InvoiceTax>`), `createdAt`, `updatedAt`.
+- **`InvoiceTax`**: nueva clase para parsear el array `taxes` de la respuesta (`id`, `type`, `taxId`, `baseImp`, `importe`, `description`).
+- **Example**: `example/lib/main.dart` ampliado con ejemplo completo de emisión de factura B de servicios con IVA 21%.
+- **README**: documentación del servicio de facturas actualizada con todos los campos, tabla de parámetros de respuesta y QR.
+
 ## 0.1.4
 
 - Documentación README ampliada: sección **Ejemplos en el repositorio** con requisitos, pasos (`cd example`, `dart pub get`, editar `main.dart`, `dart run lib/main.dart`) y descripción de qué hace el ejemplo (logging HTTP, `healthCheck`, salida formateada).

@@ -1,6 +1,6 @@
 name: arca_connect_sdk
 description: SDK para integrar factura electrónica ARCA (ex AFIP) en Flutter/Dart. Emití facturas A, B, C con CAE.
-version: 0.1.4
+version: 0.1.5
 license: MIT
 homepage: https://conectarca.com
 

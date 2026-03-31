@@ -26,6 +26,22 @@ abstract class IvaItem with _$IvaItem {
       _$IvaItemFromJson(json);
 }
 
+/// Tributo/impuesto adicional desglosado para el comprobante.
+@freezed
+abstract class TributoItem with _$TributoItem {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory TributoItem({
+    required int id,
+    required String desc,
+    required double baseImp,
+    required double alic,
+    required double importe,
+  }) = _TributoItem;
+
+  factory TributoItem.fromJson(Map<String, dynamic> json) =>
+      _$TributoItemFromJson(json);
+}
+
 /// Payload de entrada para emitir un comprobante electrónico ARCA.
 @freezed
 abstract class InvoiceData with _$InvoiceData {
@@ -41,6 +57,7 @@ abstract class InvoiceData with _$InvoiceData {
     @JsonKey(fromJson: _docTipoFromJson, toJson: _docTipoToJson)
     required DocTipo docTipo,
     required String docNro,
+    required int condicionIvaReceptorId,
     required double impTotal,
     required double impNeto,
     required double impIva,
@@ -49,10 +66,12 @@ abstract class InvoiceData with _$InvoiceData {
     @Default(0) double impTrib,
     @Default('PES') String monId,
     @Default(1) double monCotiz,
+    DateTime? cbteDate,
     DateTime? fchServDesde,
     DateTime? fchServHasta,
     DateTime? fchVtoPago,
     @Default(<IvaItem>[]) List<IvaItem> iva,
+    @Default(<TributoItem>[]) List<TributoItem> tributos,
   }) = _InvoiceData;
 
   factory InvoiceData.fromJson(Map<String, dynamic> json) =>
@@ -65,6 +84,8 @@ abstract class InvoiceData with _$InvoiceData {
         'concepto': concepto.code,
         'doc_tipo': docTipo.code,
         'doc_nro': docNro,
+        'condicion_iva_receptor_id': condicionIvaReceptorId,
+        if (cbteDate != null) 'cbte_fecha': _formatDate(cbteDate!),
         'imp_total': impTotal,
         'imp_neto': impNeto,
         'imp_iva': impIva,
@@ -82,6 +103,17 @@ abstract class InvoiceData with _$InvoiceData {
                 'id': i.id.code,
                 'base_imp': i.baseImp,
                 'importe': i.importe,
+              },
+            )
+            .toList(),
+        'tributos': tributos
+            .map(
+              (t) => <String, dynamic>{
+                'id': t.id,
+                'desc': t.desc,
+                'base_imp': t.baseImp,
+                'alic': t.alic,
+                'importe': t.importe,
               },
             )
             .toList(),
